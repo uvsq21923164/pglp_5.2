@@ -1,4 +1,6 @@
-package Uvsq21923164.exo51;
+package Uvsq21923164.exo5_2;
+
+
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import Uvsq21923164.exo5_2.AbstractDAOFactory.DAOType;
 
 
 
@@ -57,7 +61,7 @@ public class SerializationTest {
 		}
 		assertEquals(p, q);
 	}
-	
+	/*
 	@Test()
 	public void testSerializationPersonnelGroupe() {
 		PersonnelGroupe qg = null;
@@ -82,12 +86,36 @@ public class SerializationTest {
 		}
 		assertEquals(pg, qg);
 	}
+	*/
+	
+	@Test()
+	public void testPersonnelCRUD() {
+		DAO<Personnel> pc = AbstractDAOFactory
+				.getFactory(DAOType.Serial)
+				.getPersonnelDAO();
+		pc.delete(p); // Supprime le fichier s'il existe déjà
+		pc.create(p);
+		p.addNumeroTelephone(new NumeroTelephone("Maison", "0123456789"));
+		pc.update(p);
+		assertEquals(p, pc.read(p.getNom()));
+	}
+	/*
+	@Test()
+	public void testPersonnelGroupeCRUD() {
+		DAO<PersonnelGroupe> pgc = DAOFactory
+				.getFactory(DAOType.Serial)
+				.getPersonnelGroupeDAO();
+		pgc.delete(pg); // Supprime le fichier s'il existe déjà
+		pgc.create(pg);
+		pg.addPersonnel(p);
+		pgc.update(pg);
+		assertEquals(pg, pgc.read(pg.getId()));
+	}
 	
 	
 	
 	
-	
-	
+	*/
 	
 	
 }
